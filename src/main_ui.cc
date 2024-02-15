@@ -11,14 +11,32 @@ MainComponent::MainComponent() = default;
 Element MainComponent::Render() {
   return hbox(
       vbox(
-          vbox(
-              text("input"),
-              text("output")
-          ) | border,
-          text("AC") | center | color(Color::GreenLight) | bold | inverted | border
-      ) | flex,
-      text("info") | border
+          window(
+              text("Input") | bold,
+              hbox(
 
+              )
+          ) | flex,
+
+          window(
+              text("Output") | bold,
+              hbox(
+
+              )
+          ) | flex,
+
+          hbox(
+              text(" AC ") | center | bgcolor(Color::GreenLight) | bold,
+              separatorEmpty(),
+              text("Congratulations!") | flex
+          ) | border
+      ) | flex,
+
+      window(
+          text("Problem Info") | bold,
+          vbox(
+          )
+      ) | size(WIDTH, GREATER_THAN, 20)
   );
 }
 
@@ -36,6 +54,8 @@ bool MainComponent::OnEvent(Event event) {
 bool MainComponent::OnMouseEvent(Event event) {
   auto out{false};
 
+  x = event.cursor_x();
+  y = event.cursor_y();
   return out;
 }
 

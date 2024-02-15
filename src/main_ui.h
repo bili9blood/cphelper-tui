@@ -11,4 +11,7 @@ class MainComponent final : public ftxui::ComponentBase {
   bool           OnEvent(ftxui::Event event) final;
   bool           OnMouseEvent(ftxui::Event event);
   bool           OnCharEvent(ftxui::Event event);
+
+  int            x{};
+  int            y{};
 };
