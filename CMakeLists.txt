@@ -17,7 +17,10 @@ project(cphelper-tui LANGUAGES C CXX VERSION 0.1.0)
 find_package(libhv REQUIRED)
 find_package(ftxui REQUIRED)
 
-aux_source_directory(src CPHELPER_TUI_SOURCES)
+file(
+  GLOB_RECURSE CPHELPER_TUI_SOURCES
+  ${CMAKE_CURRENT_LIST_DIR}/src/*.cc ${CMAKE_CURRENT_LIST_DIR}/src/*.h
+)
 
 add_executable(cphelper-tui ${CPHELPER_TUI_SOURCES})
 
