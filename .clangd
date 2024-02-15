@@ -61,7 +61,6 @@ Diagnostics:
       - cert-err33-c
       - cert-err34-c
       - cert-err52-cpp
-      - cert-err58-cpp
       - cert-err60-cpp
       - cert-flp30-c
       - cert-mem57-cpp
@@ -69,7 +68,6 @@ Diagnostics:
       - cert-str34-c
       - cert-oop57-cpp
       - cert-oop58-cpp
-      - concurrency-*
       - cppcoreguidelines-init-variables
       - cppcoreguidelines-narrowing-conversions
       - cppcoreguidelines-no-malloc
