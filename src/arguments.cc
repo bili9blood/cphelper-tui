@@ -4,7 +4,7 @@
 
 #include "constants.h"
 
-void ParseArguments(int argc, char **argv) {
+void arguments::Parse(int argc, char **argv) {
   CLI::App app{constants::kProgDesc};
 
   // TODO: add options

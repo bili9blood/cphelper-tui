@@ -1,3 +1,7 @@
 #pragma once
 
-void ParseArguments(int argc, char** argv);
+namespace arguments {
+
+void Parse(int argc, char** argv);
+
+}
