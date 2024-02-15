@@ -18,8 +18,6 @@ class _Thread_RAII {
   }
 } static __thread_raii;
 
-//
-
 void logic::StartServer() {
   srv           = std::make_unique<Server>(logic::OnRecv);
   server_thread = std::make_unique<std::thread>(&httplib::Server::listen_after_bind, srv.get());
