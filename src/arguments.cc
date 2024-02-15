@@ -5,14 +5,14 @@
 #include "constants.h"
 
 void arguments::Parse(int argc, char **argv) {
-  using arguments::opts;
+  using namespace arguments;
 
   CLI::App app{constants::kProgDesc};
 
   /* ---------------------------------------------------------------- */
   /*                              Options                             */
   /* ---------------------------------------------------------------- */
-  app.add_option("-P,--port", opts.port, "Port to listen on");
+  app.add_option("-P,--port", port, "Port to listen on");
 
   /* ---------------------------------------------------------------- */
   /*                               Parse                              */

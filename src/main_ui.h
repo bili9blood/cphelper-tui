@@ -12,6 +12,10 @@ class MainComponent final : public ftxui::ComponentBase {
   bool           OnMouseEvent(ftxui::Event event);
   bool           OnCharEvent(ftxui::Event event);
 
-  int            x{};
-  int            y{};
+  std::string    problem_name_;
+
+  int            info_window_width_{20};
+  int            verdict_window_height_{1};
+
+  bool           show_detail_info_{false};
 };

@@ -2,10 +2,7 @@
 
 namespace arguments {
 
-struct Options {
-  int port{17980};
-} inline opts;
+inline int port{17980};
 
-void Parse(int argc, char** argv);
-
+void        Parse(int argc, char** argv);
 }
