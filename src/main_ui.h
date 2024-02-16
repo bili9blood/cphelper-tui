@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ftxui/component/component_base.hpp>
-#include <mutex>
 
 class MainComponent final : public ftxui::ComponentBase {
  public:
