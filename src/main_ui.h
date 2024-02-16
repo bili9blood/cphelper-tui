@@ -17,6 +17,7 @@ class MainComponent final : public ftxui::ComponentBase {
   void           HandleProblemInfo(const std::string& info);
 
   std::string    problem_name_;
+  std::string    problem_group_;
 
   int            info_window_width_{20};
   int            verdict_window_height_{1};

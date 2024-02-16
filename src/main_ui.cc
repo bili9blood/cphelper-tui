@@ -9,6 +9,9 @@
 #include <string>
 
 #include "arguments.h"
+#include "components.h"
+
+using namespace components;
 using namespace ftxui;
 
 MainComponent::MainComponent() = default;
@@ -29,10 +32,8 @@ Element MainComponent::Render() {
               )
           ) | flex,
 
-          hbox(
-              text(" AC ") | center | bgcolor(Color::GreenLight) | bold,
-              separatorEmpty(),
-              text("Congratulations!") | flex
+          field(
+              "AC", Color::GreenLight, text("Congratulations!") | flex
           ) | size(HEIGHT, EQUAL, verdict_window_height_) |
               border
       ) | flex,
@@ -40,20 +41,13 @@ Element MainComponent::Render() {
       window(
           text("Info") | bold,
           vbox(
-              hbox(
-                  text(" NAME ") | bgcolor(Color::DarkOrange) | bold,
-                  separatorEmpty(),
-                  text(problem_name_)
-              ),
+              field("NAME", Color::DarkOrange, text(problem_name_)),
 
+              filler(),
               show_detail_info_
                   ? (vbox(
                         separator(),
-                        hbox(
-                            text(" PORT ") | bgcolor(Color::BlueViolet) | bold,
-                            separatorEmpty(),
-                            text(std::to_string(arguments::port))
-                        )
+                        field("PORT", Color::BlueViolet, text(std::to_string(arguments::port)))
                     ))
                   : vbox()
           )
@@ -114,6 +108,7 @@ void MainComponent::HandleProblemInfo(const std::string& info) {
   try {
     const auto json = nlohmann::json::parse(info);
     problem_name_   = json["name"];
+    problem_group_  = json["group"];
   } catch (const nlohmann::json::exception& e) {
     return;
   }
