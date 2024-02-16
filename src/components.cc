@@ -7,7 +7,7 @@ using namespace components;
 
 Element components::field(const std::string& label, const Color& label_color, const Element& value) {
   return hbox(
-      text(" " + label + " ") | bgcolor(label_color) | bold,
+      text(" " + label + " ") | bgcolor(label_color) | bold | center,
       separatorEmpty(),
       value
   );
