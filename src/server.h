@@ -1,15 +1,17 @@
 #pragma once
 
+#define CPPHTTPLIB_THREAD_POOL_COUNT 1
 #include <httplib.h>
 
 #include <nlohmann/json.hpp>
 
+namespace ftxui {
+class ScreenInteractive;
+}
 class Server final : public httplib::Server {
-  using on_recv_t = std::function<void(const nlohmann::json &)>;
-
  public:
-  explicit Server(on_recv_t OnRecv);
+  static void StartServer();
 
  private:
-  on_recv_t OnRecv_;
+  explicit Server();
 };

@@ -1,9 +1,11 @@
 #include "main_ui.h"
 
+#include <fstream>
 #include <ftxui/component/event.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/terminal.hpp>
+#include <nlohmann/json.hpp>
 #include <string>
 
 #include "arguments.h"
@@ -17,7 +19,6 @@ Element MainComponent::Render() {
           window(
               text("Input") | bold,
               hbox(
-
               )
           ) | flex,
 
@@ -60,6 +61,10 @@ Element MainComponent::Render() {
   );
 }
 
+void MainComponent::SetProblemName(const std::string& name) {
+  problem_name_ = name;
+}
+
 bool MainComponent::OnEvent(Event event) {
   auto out{false};
 
@@ -67,6 +72,11 @@ bool MainComponent::OnEvent(Event event) {
     out |= OnMouseEvent(std::move(event));
   else if (event.is_character())
     out |= OnCharEvent(std::move(event));
+  else if (nlohmann::json::accept(event.input())) {
+    HandleProblemInfo(event.input());
+    const Event _e = std::move(event);
+    out            = true;
+  }
 
   return out;
 }
@@ -98,4 +108,13 @@ bool MainComponent::OnCharEvent(Event event) {
   }
 
   return out;
+}
+
+void MainComponent::HandleProblemInfo(const std::string& info) {
+  try {
+    const auto json = nlohmann::json::parse(info);
+    problem_name_   = json["name"];
+  } catch (const nlohmann::json::exception& e) {
+    return;
+  }
 }

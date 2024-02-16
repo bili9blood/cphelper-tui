@@ -6,32 +6,28 @@
 #include <ftxui/screen/screen.hpp>
 
 #include "arguments.h"
-#include "logic.h"
 #include "main_ui.h"
+#include "screen.h"
+#include "server.h"
 
-int main(int argc, char **argv) {
-  using namespace ftxui;
+static bool HandleQuit(const ftxui::Event& event) {
+  if (event == ftxui::Event::Character('q')) {
+    global::screen()->ExitLoopClosure()();
+    return true;
+  }
+  return false;
+}
 
+int main(int argc, char** argv) {
   arguments::Parse(argc, argv);
 
-  logic::StartServer();
-
-  auto       screen         = ScreenInteractive::Fullscreen();
-  auto       main_component = (std::shared_ptr<ComponentBase>)Make<MainComponent>();
-
-  const auto HandleQuit     = [&](const Event &event) {
-    if (event == Event::Character('q')) {
-      screen.ExitLoopClosure()();
-      return true;
-    }
-    return false;
-  };
+  ftxui::Component main_component = std::make_shared<MainComponent>();
 
   main_component |= CatchEvent(HandleQuit);
 
-  // screen.Loop(main_component);
+  Server::StartServer();
 
-  while (true) sleep(100);
+  global::screen()->Loop(main_component);
 
   return 0;
 }
