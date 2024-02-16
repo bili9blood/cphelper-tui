@@ -56,10 +56,6 @@ Element MainComponent::Render() {
   );
 }
 
-void MainComponent::SetProblemName(const std::string& name) {
-  problem_name_ = name;
-}
-
 bool MainComponent::OnEvent(Event event) {
   auto out{false};
 

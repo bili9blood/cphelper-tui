@@ -6,8 +6,6 @@ class MainComponent final : public ftxui::ComponentBase {
  public:
   MainComponent();
 
-  void SetProblemName(const std::string& name);
-
  private:
   ftxui::Element Render() final;
   bool           OnEvent(ftxui::Event event) final;
