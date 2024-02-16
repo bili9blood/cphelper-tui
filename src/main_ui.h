@@ -11,7 +11,6 @@ class MainComponent final : public ftxui::ComponentBase {
  private:
   ftxui::Element Render() final;
   bool           OnEvent(ftxui::Event event) final;
-  bool           OnMouseEvent(ftxui::Event event);
   bool           OnCharEvent(ftxui::Event event);
   void           HandleProblemInfo(const std::string& info);
 

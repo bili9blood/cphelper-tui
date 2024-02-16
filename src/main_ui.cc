@@ -62,21 +62,13 @@ void MainComponent::SetProblemName(const std::string& name) {
 bool MainComponent::OnEvent(Event event) {
   auto out{false};
 
-  if (event.is_mouse())
-    out |= OnMouseEvent(std::move(event));
-  else if (event.is_character())
+  if (event.is_character())
     out |= OnCharEvent(std::move(event));
   else if (nlohmann::json::accept(event.input())) {
     HandleProblemInfo(event.input());
     const Event _e = std::move(event);
     out            = true;
   }
-
-  return out;
-}
-
-bool MainComponent::OnMouseEvent(Event event) {
-  auto out{false};
 
   return out;
 }
