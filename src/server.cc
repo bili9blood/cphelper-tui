@@ -22,7 +22,10 @@ Server::Server() {
   bind_to_port("0.0.0.0", arguments::port);
 
   Post("/", [this](const auto &request, const auto &) {
-    global::screen()->Post(ftxui::Event::Special(request.body));
+    if (!nlohmann::json::accept(request.body)) return;
+    auto data = nlohmann::json::parse(request.body);
+    auto json = nlohmann::json{{"type", "problem_info"}, {"data", data}};
+    global::screen()->Post(ftxui::Event::Special(json.dump()));
   });
 }
 

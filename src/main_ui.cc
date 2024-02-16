@@ -5,7 +5,6 @@
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/terminal.hpp>
-#include <nlohmann/json.hpp>
 #include <string>
 
 #include "arguments.h"
@@ -62,9 +61,13 @@ bool MainComponent::OnEvent(Event event) {
   if (event.is_character())
     out |= OnCharEvent(std::move(event));
   else if (nlohmann::json::accept(event.input())) {
-    HandleProblemInfo(event.input());
+    auto json = nlohmann::json::parse(event.input());
+    if (json["type"] == "problem_info") {
+      HandleProblemInfo(json["data"]);
+      out = true;
+    }
+
     const Event _e = std::move(event);
-    out            = true;
   }
 
   return out;
@@ -93,11 +96,10 @@ bool MainComponent::OnCharEvent(Event event) {
   return out;
 }
 
-void MainComponent::HandleProblemInfo(const std::string& info) {
+void MainComponent::HandleProblemInfo(const nlohmann::json& info) {
   try {
-    const auto json = nlohmann::json::parse(info);
-    problem_name_   = json["name"];
-    problem_group_  = json["group"];
+    problem_name_  = info["name"];
+    problem_group_ = info["group"];
   } catch (const nlohmann::json::exception& e) {
     return;
   }
