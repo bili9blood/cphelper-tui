@@ -42,6 +42,7 @@ Element MainComponent::Render() {
           text("Info") | bold,
           vbox(
               field("NAME", Color::DarkOrange, text(problem_name_)),
+              field("GROUP", Color::DarkGoldenrod, text(problem_group_)),
 
               filler(),
               show_detail_info_
